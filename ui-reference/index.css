@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@500;600;700;800&display=swap');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --brand-orange: #ff6b2b;
+  --bg-primary: #0d0a1a;
+  --bg-secondary: #151025;
+  --bg-card: #1a1530;
+  --bg-card-darker: #130f24;
+  --text-primary: #ffffff;
+  --text-secondary: #b0adc0;
+  --text-muted: #6b6880;
+  --border-color: rgba(255,255,255,0.06);
+}
+body {
+  background: var(--bg-primary);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
