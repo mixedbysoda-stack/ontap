@@ -1,0 +1,7 @@
+build/
+dist/
+JUCE/
+*.secret*
+ontap_license_secret.txt
+.DS_Store
+._*

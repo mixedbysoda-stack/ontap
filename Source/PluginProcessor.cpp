@@ -17,6 +17,22 @@ TapOnProcessor::TapOnProcessor()
 
 TapOnProcessor::~TapOnProcessor() = default;
 
+bool TapOnProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
+{
+    const auto& mainInput  = layouts.getMainInputChannelSet();
+    const auto& mainOutput = layouts.getMainOutputChannelSet();
+
+    // Only support mono or stereo, and input must match output
+    if (mainOutput != juce::AudioChannelSet::mono()
+        && mainOutput != juce::AudioChannelSet::stereo())
+        return false;
+
+    if (mainInput != mainOutput)
+        return false;
+
+    return true;
+}
+
 void TapOnProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     juce::dsp::ProcessSpec spec;
