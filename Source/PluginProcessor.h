@@ -47,6 +47,13 @@ private:
 
 #ifndef ONTAP_DEMO
     std::unique_ptr<LicenseManager> licenseManager;
+#else
+    // Demo: 60s play, 10s mute cycle
+    int64_t demoSampleCounter = 0;
+    double demoSampleRate = 44100.0;
+    static constexpr double demoPlaySeconds = 60.0;
+    static constexpr double demoMuteSeconds = 10.0;
+    bool isDemoMuted() const;
 #endif
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TapOnProcessor)

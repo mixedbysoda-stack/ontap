@@ -35,6 +35,9 @@ bool TapOnProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 
 void TapOnProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
+#ifdef ONTAP_DEMO
+    demoSampleRate = sampleRate;
+#endif
     juce::dsp::ProcessSpec spec;
     spec.sampleRate = sampleRate;
     spec.maximumBlockSize = static_cast<juce::uint32>(samplesPerBlock);
@@ -54,6 +57,14 @@ void TapOnProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBu
 #ifndef ONTAP_DEMO
     // License check — silence audio if not activated
     if (licenseManager && !licenseManager->isActivated())
+    {
+        buffer.clear();
+        return;
+    }
+#else
+    // Demo: 60s play, 10s mute cycle
+    demoSampleCounter += buffer.getNumSamples();
+    if (isDemoMuted())
     {
         buffer.clear();
         return;
@@ -101,6 +112,16 @@ void TapOnProcessor::setStateInformation(const void* data, int sizeInBytes)
     if (xml != nullptr && xml->hasTagName(apvts.state.getType()))
         apvts.replaceState(juce::ValueTree::fromXml(*xml));
 }
+
+#ifdef ONTAP_DEMO
+bool TapOnProcessor::isDemoMuted() const
+{
+    double cycleLength = demoPlaySeconds + demoMuteSeconds;
+    double secondsElapsed = static_cast<double>(demoSampleCounter) / demoSampleRate;
+    double posInCycle = std::fmod(secondsElapsed, cycleLength);
+    return posInCycle >= demoPlaySeconds;
+}
+#endif
 
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {

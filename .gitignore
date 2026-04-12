@@ -5,3 +5,4 @@ JUCE/
 ontap_license_secret.txt
 .DS_Store
 ._*
+build-demo/

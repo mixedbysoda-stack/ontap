@@ -58,6 +58,8 @@ juce_add_binary_data(TapOnBinaryData SOURCES
 
 target_link_libraries(TapOn PRIVATE TapOnBinaryData)
 
+option(BUILD_DEMO "Build demo version with audio limitations" OFF)
+
 target_compile_definitions(TapOn PUBLIC
     JUCE_WEB_BROWSER=0
     JUCE_USE_CURL=0
@@ -65,6 +67,10 @@ target_compile_definitions(TapOn PUBLIC
     JUCE_DISPLAY_SPLASH_SCREEN=0
     JUCE_REPORT_APP_USAGE=0
 )
+
+if(BUILD_DEMO)
+    target_compile_definitions(TapOn PUBLIC ONTAP_DEMO=1)
+endif()
 
 target_link_libraries(TapOn PRIVATE
     juce::juce_audio_utils
