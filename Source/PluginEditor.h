@@ -17,6 +17,7 @@ public:
     void paint(juce::Graphics&) override;
     void resized() override;
     void timerCallback() override;
+    void parentHierarchyChanged() override;
 
 private:
     TapOnProcessor& processorRef;
