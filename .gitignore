@@ -6,3 +6,5 @@ ontap_license_secret.txt
 .DS_Store
 ._*
 build-demo/
+
+build-demo-fix/
