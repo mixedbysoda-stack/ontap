@@ -33,7 +33,7 @@ juce_add_plugin(TapOn
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE
     COPY_PLUGIN_AFTER_BUILD FALSE
     VST3_CATEGORIES "Fx" "Dynamics"
-    AU_MAIN_TYPE "kAudioUnitType_Effect"
+    AU_MAIN_TYPE "kAudioUnitType_MusicEffect"
     AAX_CATEGORY "AAX_ePlugInCategory_Dynamics"
 )
 
