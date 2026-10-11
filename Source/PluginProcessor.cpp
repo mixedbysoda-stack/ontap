@@ -30,6 +30,13 @@ bool TapOnProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
     if (mainInput != mainOutput)
         return false;
 
+    // Sidechain (Audio trigger key): disabled, mono or stereo
+    const auto sidechain = layouts.getChannelSet(true, 1);
+    if (! sidechain.isDisabled()
+        && sidechain != juce::AudioChannelSet::mono()
+        && sidechain != juce::AudioChannelSet::stereo())
+        return false;
+
     return true;
 }
 
@@ -41,7 +48,7 @@ void TapOnProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     juce::dsp::ProcessSpec spec;
     spec.sampleRate = sampleRate;
     spec.maximumBlockSize = static_cast<juce::uint32>(samplesPerBlock);
-    spec.numChannels = static_cast<juce::uint32>(getTotalNumOutputChannels());
+    spec.numChannels = static_cast<juce::uint32>(getMainBusNumOutputChannels());
     duckingEngine.prepare(spec);
 }
 
@@ -91,7 +98,11 @@ void TapOnProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBu
     for (auto i = getTotalNumInputChannels(); i < getTotalNumOutputChannels(); ++i)
         buffer.clear(i, 0, buffer.getNumSamples());
 
-    duckingEngine.processBlock(buffer, midiMessages, bpm, ppqPosition, isPlaying);
+    // Main in/out share the first channels; the sidechain bus has zero channels when disabled
+    auto mainBuffer = getBusBuffer(buffer, false, 0);
+    const auto sidechainBuffer = getBusBuffer(buffer, true, 1);
+
+    duckingEngine.processBlock(mainBuffer, sidechainBuffer, midiMessages, bpm, ppqPosition, isPlaying);
 }
 
 juce::AudioProcessorEditor* TapOnProcessor::createEditor()

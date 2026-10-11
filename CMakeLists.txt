@@ -10,7 +10,7 @@ if(APPLE AND NOT DEFINED CMAKE_OSX_ARCHITECTURES)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "Build architectures" FORCE)
 endif()
 
-project(TapOn VERSION 1.0.0 LANGUAGES C CXX)
+project(TapOn VERSION 1.1.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -33,7 +33,7 @@ juce_add_plugin(TapOn
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE
     COPY_PLUGIN_AFTER_BUILD FALSE
     VST3_CATEGORIES "Fx" "Dynamics"
-    AU_MAIN_TYPE "kAudioUnitType_Effect"
+    AU_MAIN_TYPE "kAudioUnitType_MusicEffect"
     AAX_CATEGORY "AAX_ePlugInCategory_Dynamics"
 )
 
