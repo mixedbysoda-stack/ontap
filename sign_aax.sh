@@ -14,7 +14,7 @@ echo "Signing On Tap AAX..."
 
 /Applications/PACEAntiPiracy/Eden/Fusion/Versions/5/bin/wraptool sign \
     --account sodanswishers \
-    --wcguid D90D90C0-10A1-11F1-AFA6-00505692FF7 \
+    --wcguid D90D90C0-10A1-11F1-AFA6-005056920FF7 \
     --password "$PASSWORD" \
     --signid 45C26CF1655F48EBC8A21802BDA053514719E1F0 \
     --in "$AAX_IN" \

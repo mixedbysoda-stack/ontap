@@ -17,7 +17,7 @@ echo "Wrapping On Tap AAX..."
     --verbose \
     --account sodanswishers \
     --password "$PASSWORD" \
-    --wcguid D90D90C0-10A1-11F1-AFA6-00505692FF7 \
+    --wcguid D90D90C0-10A1-11F1-AFA6-005056920FF7 \
     --in "$AAX_IN" \
     --out "$AAX_OUT"
 
